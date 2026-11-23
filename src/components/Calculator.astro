@@ -1,0 +1,38 @@
+---
+import { example, fields, reservation, site } from '../lib/site.mjs';
+---
+<section id="calculadora" class="calculator moving-calc block wrap" aria-labelledby="tool-title">
+  <div class="tool-heading"><h2 id="tool-title">{site.toolTitle}</h2>
+    <p id="tool-description">{site.toolDescription}</p></div>
+  <div class="tool-layout">
+    <form data-calculator="moving" data-example={JSON.stringify(example)} aria-describedby="tool-description">
+      {fields.map(([legend, inputs], index) => (
+        <fieldset><legend>{legend}</legend>
+          <div class="fields">
+            {inputs.map(([name, label, step = '1', minimum = step === '0.01' ? 0.01 : 1, value]) => (
+              <label>{label}<input name={name} type="number" inputmode={step === '1' ? 'numeric' : 'decimal'}
+                min={minimum} max={name === 'extraKmPrice' ? 1000 : 1_000_000} step={step} required value={value} /></label>
+            ))}
+            {index === 2 && <label class="full-field">Volumen útil o nominal por viaje (m³, opcional)
+              <input name="usableVolume" type="number" inputmode="decimal" min="0.01" max="1000000" step="0.01" aria-describedby="volume-note" />
+              <small id="volume-note">Si lo conoces, indica el volumen de la ficha o un valor menor según tu carga.</small>
+            </label>}
+          </div>
+        </fieldset>
+      ))}
+      <div class="actions"><button class="button" type="submit">Calcular</button>
+        <button class="secondary" data-example type="button">Probar con un ejemplo</button></div>
+      <noscript><p>Activa JavaScript para calcular o consulta las medidas y tarifas en <a href={reservation}>la web de la oficina de Sondika</a>.</p></noscript>
+    </form>
+    <section class="result-panel" aria-labelledby="result-title">
+      <h3 id="result-title">Tu estimación</h3>
+      <output data-result aria-live="polite" tabindex="-1">Introduce los datos o carga el ejemplo.</output>
+      <button type="button" class="secondary copy" data-copy hidden>Copiar estimación</button>
+      <span data-copy-status class="copy-feedback" role="status"></span>
+      <p class="result-note">{site.resultNote}</p>
+    </section>
+  </div>
+</section>
+<script>
+  import '../lib/calculator.js';
+</script>

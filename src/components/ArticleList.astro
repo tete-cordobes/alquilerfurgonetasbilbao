@@ -1,0 +1,13 @@
+---
+import { sitePath } from '../lib/paths.mjs';
+const { list, level = 3 } = Astro.props;
+const Heading = level === 2 ? 'h2' : 'h3';
+---
+<ul class="article-list">
+  {list.map((item) => (
+    <li>
+      <Heading><a href={sitePath(`/blog/${item.slug}/`)}>{item.title}</a></Heading>
+      <p>{item.description}</p>
+    </li>
+  ))}
+</ul>

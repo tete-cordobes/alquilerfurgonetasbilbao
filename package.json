@@ -1,0 +1,17 @@
+{
+  "name": "alquilerfurgonetasbilbao",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "dependencies": {
+    "astro": "7.1.6"
+  }
+}

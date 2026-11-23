@@ -1,0 +1,37 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ArticleList from '../../components/ArticleList.astro';
+import { articles } from '../../lib/content.mjs';
+import { sitePath } from '../../lib/paths.mjs';
+import { site } from '../../lib/site.mjs';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const related = articles.filter((entry) => entry.slug !== article.slug);
+const words = article.sections.flatMap((section) => section.paragraphs).join(' ').split(/\s+/).length;
+---
+<SiteLayout path={`/blog/${article.slug}/`} title={article.title} description={article.description} article={article}>
+  <article class="block wrap entry">
+    <nav class="crumb" aria-label="Ruta de navegación"><a href={sitePath('/')}>Inicio</a><span aria-hidden="true"> / </span><a href={sitePath('/blog/')}>{site.blogTitle}</a><span aria-hidden="true"> / </span><span aria-current="page">Artículo</span></nav>
+    <h1>{article.title}</h1>
+    <p class="article-meta">{Math.ceil(words / 200)} min de lectura · <a href="https://www.iberfurgo.com/">Web del editor</a></p>
+    <p>{article.description}</p>
+    <nav class="contents" aria-label="Contenido de la guía">
+      <ol>{article.sections.map((section, index) => <li><a href={`#seccion-${index + 1}`}>{section.heading}</a></li>)}</ol>
+    </nav>
+    {article.sections.map((section, index) => (
+      <section>
+        <h2 id={`seccion-${index + 1}`}>{section.heading}</h2>
+        {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+    ))}
+    <p><a class="button" href={sitePath('/#calculadora')}>Calcular espacio y viajes</a></p>
+    <section class="related" aria-labelledby="related-title">
+      <h2 id="related-title">También te puede interesar</h2>
+      <ArticleList list={related} />
+    </section>
+  </article>
+</SiteLayout>

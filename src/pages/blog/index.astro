@@ -1,0 +1,15 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ArticleList from '../../components/ArticleList.astro';
+import { articles } from '../../lib/content.mjs';
+import { sitePath } from '../../lib/paths.mjs';
+import { site } from '../../lib/site.mjs';
+---
+<SiteLayout path="/blog/" title={site.blogTitle} description={site.blogDescription}>
+  <section class="block wrap entry">
+    <nav class="crumb" aria-label="Ruta de navegación"><a href={sitePath('/')}>Inicio</a><span aria-hidden="true"> / </span><span>Guías</span></nav>
+    <h1>{site.blogTitle}</h1>
+    <p>{site.blogDescription}</p>
+    <ArticleList list={articles} level={2} />
+  </section>
+</SiteLayout>

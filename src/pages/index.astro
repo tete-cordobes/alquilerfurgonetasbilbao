@@ -1,0 +1,54 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import ArticleList from '../components/ArticleList.astro';
+import Calculator from '../components/Calculator.astro';
+import { Image } from 'astro:assets';
+import { scene } from '../lib/scene.mjs';
+import { sitePath } from '../lib/paths.mjs';
+import { articles } from '../lib/content.mjs';
+import { booking, fleet, municipalGuide, office, reservation, site } from '../lib/site.mjs';
+const directions = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent('Av. Txorierri, 46, 48150 Basozabal, Bizkaia');
+---
+<SiteLayout path="/" title={site.title} description={site.description}>
+  <section class="hero moving-hero">
+    <div class="wrap moving-hero-grid">
+      <div class="intro-copy">
+        <h1>Alquiler de furgonetas en Bilbao para mudanzas</h1>
+        <p>Comprueba si caben tus muebles, calcula los viajes y consulta las fechas con la oficina de Sondika.</p>
+        <div class="actions"><a class="button" href={booking}>Ir a la web de reservas</a><a class="secondary" href="#calculadora">Calcular espacio y viajes</a></div>
+      </div>
+      <figure class="van-stage">
+        <Image src={scene.image} widths={[480, 760, 1040]} sizes="(max-width: 48rem) 94vw, (max-width: 80rem) 52vw, 640px" alt={scene.alt} loading="eager" fetchpriority="high" />
+      </figure>
+    </div>
+  </section>
+  <section id="categorias" class="block wrap fleet-section" aria-labelledby="fleet-title">
+    <div class="section-intro"><h2 id="fleet-title">¿Qué tamaño necesitas?</h2>
+      <p>Compara el largo, el ancho y el alto de la zona de carga. Confirma las medidas de la puerta y de la unidad disponible antes de reservar.</p></div>
+    <div class="fleet-list">
+      {fleet.map(van => <article class="fleet-entry">
+        <div class="fleet-volume"><strong>{van.volume}<span> m³</span></strong><small>Volumen nominal</small></div>
+        <div><h3><a href={'https://www.iberfurgo.com/flota/furgoneta-' + van.slug + '/'}>{van.name}</a></h3><p>{van.use}</p></div>
+        <dl><div><dt>Interior orientativo</dt><dd>{van.size}</dd></div><div><dt>Carga orientativa</dt><dd>{van.payload}</dd></div></dl>
+      </article>)}
+    </div>
+  </section>
+  <div class="tool-band"><Calculator /></div>
+  <section id="oficina" class="office-band" aria-labelledby="office-title"><div class="wrap office-grid">
+    <div><h2 id="office-title">Recoge tu furgoneta en Sondika</h2>
+      <p>Cuenta el trayecto hasta tu portal y la vuelta tras descargar. La recogida se realiza en la oficina, cerca del aeropuerto de Loiu.</p>
+      <div class="actions"><a class="button" href={reservation}>Ver fechas en la web de la oficina</a></div>
+    </div>
+    <div class="office-details">
+      <address>{office.address}</address>
+      <p>Lunes a viernes, de 08:00 a 13:00 y de 16:00 a 19:00.</p>
+      <a class="office-phone" href={'tel:' + office.phone}>{office.displayPhone}</a>
+      <div class="office-links"><a href={directions}>Cómo llegar en Google Maps</a><a href={office.maps}>Ficha de la oficina</a></div>
+    </div>
+  </div></section>
+  <section class="block wrap guide-section">
+    <div class="section-intro"><h2>{site.blogTitle}</h2><a href={sitePath('/blog/')}>Todas las guías</a></div>
+    <ArticleList list={articles} />
+    <p class="city-note">Si necesitas reservar espacio en la vía pública, consulta el <a href={municipalGuide}>trámite de mudanzas del Ayuntamiento de Bilbao</a>.</p>
+  </section>
+</SiteLayout>
