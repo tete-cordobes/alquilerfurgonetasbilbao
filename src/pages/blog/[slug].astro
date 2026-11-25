@@ -11,7 +11,13 @@ export function getStaticPaths() {
 
 const { article } = Astro.props;
 const related = articles.filter((entry) => entry.slug !== article.slug);
-const words = article.sections.flatMap((section) => section.paragraphs).join(' ').split(/\s+/).length;
+const sections = article.sections.map((section) => ({
+  ...section,
+  paragraphs: section.paragraphs.map((paragraph) => Array.isArray(paragraph) ? paragraph : [paragraph]),
+}));
+const words = sections.flatMap((section) => section.paragraphs)
+  .map((parts) => parts.map((part) => typeof part === 'string' ? part : part.text).join(''))
+  .join(' ').split(/\s+/).length;
 ---
 <SiteLayout path={`/blog/${article.slug}/`} title={article.title} description={article.description} article={article}>
   <article class="block wrap entry">
@@ -22,10 +28,12 @@ const words = article.sections.flatMap((section) => section.paragraphs).join(' '
     <nav class="contents" aria-label="Contenido de la guía">
       <ol>{article.sections.map((section, index) => <li><a href={`#seccion-${index + 1}`}>{section.heading}</a></li>)}</ol>
     </nav>
-    {article.sections.map((section, index) => (
+    {sections.map((section, index) => (
       <section>
         <h2 id={`seccion-${index + 1}`}>{section.heading}</h2>
-        {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        {section.paragraphs.map((parts) => (
+          <p>{parts.map((part) => typeof part === 'string' ? part : <a href={sitePath(part.href)}>{part.text}</a>)}</p>
+        ))}
       </section>
     ))}
     <p><a class="button" href={sitePath('/#calculadora')}>Calcular espacio y viajes</a></p>

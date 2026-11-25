@@ -15,7 +15,11 @@ export const articles = [
         heading: 'Comprueba la puerta y el espacio de maniobra',
         paragraphs: [
           'Pide el ancho y alto libres de la puerta que utilizarás y las medidas de la zona de carga. También interesa el ancho entre pasos de rueda si el objeto irá sobre el suelo. Confirma qué modelo o equivalentes corresponden a la categoría que estás mirando. Dos furgonetas con un volumen anunciado similar pueden tener puertas y dimensiones distintas.',
-          'Una mesa embalada de 180 × 85 × 75 cm ocupa unos 1,15 m³. Esa cifra no dice si puedes pasarla por la puerta o girarla dentro. Si algún lado queda muy justo, comprueba la maniobra con la oficina o reserva un modelo con margen.'
+          [
+            'Una mesa embalada de 180 × 85 × 75 cm ocupa unos 1,15 m³. Esa cifra no dice si puedes pasarla por la puerta o girarla dentro. Compara las ',
+            { text: 'medidas interiores de las furgonetas por categoría', href: '/#categorias' },
+            ' y, si algún lado queda muy justo, comprueba la maniobra con la oficina o reserva un modelo con margen.'
+          ]
         ]
       },
       {
@@ -42,7 +46,11 @@ export const articles = [
         heading: 'Cuenta el recorrido completo desde la oficina',
         paragraphs: [
           'Si alquilas en la oficina de Sondika y vas a cargar en Bilbao, cuenta el desplazamiento desde la oficina hasta el lugar de carga. El recorrido tampoco termina al descargar. Añade la vuelta desde el último destino hasta el punto de devolución pactado. Consulta el tiempo de cada trayecto para la franja en la que vas a conducir y guarda el punto de devolución en el navegador antes de empezar. En un traslado de Bilbao a Getxo, por ejemplo, el alquiler puede incluir tres tramos antes de contar cualquier viaje adicional.',
-          'Comprueba la ubicación exacta con el enlace de la reserva o con la oficina. Sondika está cerca del aeropuerto de Bilbao, pero la recogida se organiza en el punto que conste en tu confirmación.'
+          [
+            'Consulta la ',
+            { text: 'dirección de la oficina de Sondika', href: '/#oficina' },
+            ' y comprueba que coincide con el enlace de la reserva. Sondika está cerca del aeropuerto de Bilbao, pero la recogida se organiza en el punto que conste en tu confirmación.'
+          ]
         ]
       },
       {
@@ -90,7 +98,11 @@ export const articles = [
         heading: 'Calcula un mínimo y compruébalo bulto a bulto',
         paragraphs: [
           'En un ejemplo hipotético entre Bilbao y Basauri, tienes 7 m³ de bultos y 950 kg de carga. Si puedes usar 6 m³ por viaje y la carga disponible para mercancía es 800 kg, tanto el volumen como el peso apuntan a un mínimo de dos viajes al redondear hacia arriba. En la práctica, el número podría subir si hay piezas que no se apilan o si los huecos del vehículo no se pueden aprovechar.',
-          'Haz una lista por viaje con las piezas más voluminosas, las cajas que caben a su alrededor y el peso aproximado. Comprueba por separado que cada pieza pasa por la puerta. Reserva espacio para mantas, cinchas y otros elementos que ocupen sitio durante el transporte.'
+          [
+            'Usa el volumen y el peso de tu inventario para ',
+            { text: 'calcular cuántos viajes necesitarás', href: '/#calculadora' },
+            '. Haz una lista por viaje con las piezas más voluminosas, las cajas que caben a su alrededor y el peso aproximado. Comprueba por separado que cada pieza pasa por la puerta. Reserva espacio para mantas, cinchas y otros elementos que ocupen sitio durante el transporte.'
+          ]
         ]
       },
       {
